@@ -1,0 +1,6 @@
+<div class="input-group mb-3">
+    <input [(ngModel)]="todo" appAddOnEnter name="todo" type="text" class="form-control" placeholder="Enter your todo" aria-label="Enter your todo" aria-describedby="basic-addon2">
+    <div class="input-group-append">
+        <button (click)="submit(todo)" class="btn btn-outline-secondary" type="button">Add</button>
+    </div>
+</div>

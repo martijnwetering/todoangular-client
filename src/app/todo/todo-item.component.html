@@ -1,0 +1,15 @@
+<li class="list-group-item" (dblclick)="toggleEdit($event)" *ngIf="!edit">
+    <div class="form-check">
+        <input [ngModel]="todo.completed" (change)="toggleTodoComplete($event)" class="form-check-input" type="checkbox">
+        <label class="form-check-label" for="defaultCheck1" [class.completed]="todo.completed">
+            {{todo.title}}
+        </label>
+        <fa-icon [icon]="faTimes" (click)="remove($event)" class="remove-icon"></fa-icon>
+    </div>
+</li>
+
+<li class="list-group-item" *ngIf="edit">
+    <div class="form-check">
+        <input [(ngModel)]="todo.title" class="form-control" type="text" (blur)="toggleEdit($event)" #editTodo>
+    </div>
+</li>

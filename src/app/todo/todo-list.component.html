@@ -1,0 +1,12 @@
+<h1>Todo</h1>
+<app-todo-input (todoAdded)="onTodoAdded($event)"></app-todo-input>
+<div *ngIf="todos" class="card">
+    <ul class="list-group list-group-flush">
+        <app-todo-item *ngFor="let todo of todos" 
+            [todo]="todo" 
+            (toggleComplete)="onTodoToggleComplete($event)" 
+            (removeTodo)="onRemoveTodo(todo)"
+            (updateTodo)="onUpdateTodo(todo)">
+        </app-todo-item>
+    </ul>
+</div>
