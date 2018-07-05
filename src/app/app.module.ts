@@ -16,6 +16,7 @@ import { TodoInputComponent } from './todo/todo-input.component';
 import { TodoStore } from './shared/todoStore.service';
 import { WriteOutJsonInterceptor } from './shared/write-out-json-interceptor';
 import { AddOnEnterDirective } from './shared/add-on-enter.directive';
+import { AppRoutingModule } from './app-routing.module';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,8 @@ import { AddOnEnterDirective } from './shared/add-on-enter.directive';
     BsDropdownModule.forRoot(),
     TooltipModule.forRoot(),
     ModalModule.forRoot(),
-    ButtonsModule.forRoot()
+    ButtonsModule.forRoot(),
+    AppRoutingModule
   ],
   providers: [
     TodoStore,

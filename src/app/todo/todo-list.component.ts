@@ -1,31 +1,53 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, DoCheck, ChangeDetectionStrategy, OnDestroy } from '@angular/core';
 import { TodoStore } from '../shared/todoStore.service';
 import { Todo } from '../model/todo';
 import { HttpErrorResponse } from '@angular/common/http';
-import { empty } from 'rxjs';
-import { catchError } from 'rxjs/operators';
+import { ActivatedRoute } from '@angular/router';
+import { Subscription } from 'rxjs';
 
 @Component({
     selector: 'app-todo-list',
     templateUrl: './todo-list.component.html',
     styleUrls: ['./todo-list.component.scss']
 })
-export class TodoListComponent implements OnInit {
+export class TodoListComponent implements OnInit, DoCheck, OnDestroy {
 
+    private filter: string;
+    private routeSubscription: Subscription;
     public todos: Array<Todo> = [];
 
-    constructor(private todoStore: TodoStore) { }
+    constructor(private todoStore: TodoStore, private route: ActivatedRoute) { 
+
+    }
     
     ngOnInit() {
-        this.todoStore.get()
-            .subscribe(
-                (todos) => { 
-                    this.todos = todos; 
-                },
-                (error) => { 
-                    console.log(error.message); 
-                }
-            )
+        this.routeSubscription = this.route.params.subscribe(
+            (params) => { 
+                const filter = params['filter'];
+                this.route.data.subscribe(
+                    (data: {todos: Todo[]}) => {
+                        if (filter === 'active')
+                            this.todos = data.todos.filter(t => !t.completed);
+                        else if (filter === 'completed')
+                            this.todos = data.todos.filter(t => t.completed);
+                        else
+                            this.todos = data.todos;
+                    },
+                    (error) => { 
+                        console.log(error.message); 
+                    }
+                )
+            }
+        );
+        
+    }
+
+    ngOnDestroy() {
+
+    }
+
+    ngDoCheck() {
+        console.log('Do Check called');
     }
 
     onTodoAdded(todo: Todo) {
@@ -45,8 +67,7 @@ export class TodoListComponent implements OnInit {
     onUpdateTodo(todo: Todo) {
         this.todoStore.update(todo)
             .subscribe(
-                (todo) => {
-                   
+                () => {
                 },
                 (error: HttpErrorResponse) => {
                     console.log("Could not update todo", error.message);
@@ -58,8 +79,8 @@ export class TodoListComponent implements OnInit {
         this.todos.splice(this.todos.indexOf(todo), 1);
         this.todoStore.remove(todo)
             .subscribe(
-                (res) => { },
-                (error: HttpErrorResponse) => {
+                () => { },
+                () => {
                     this.todos.push(todo);
                 } 
             );
@@ -68,7 +89,7 @@ export class TodoListComponent implements OnInit {
     onTodoToggleComplete(todo: Todo) {
         this.todoStore.toggleComplete(todo)
             .subscribe(
-                (res) => {}
+                () => { }
             );
     }
 }

@@ -2,8 +2,7 @@
   "name": "ToDoAngular.Client",
   "version": "0.0.0",
   "scripts": {
-    "ng": "ng",
-    "start": "ng serve",
+    "start": "ng serve --proxy-config proxy.config.json -o",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
@@ -19,7 +18,7 @@
     "@angular/http": "^6.0.2",
     "@angular/platform-browser": "^6.0.2",
     "@angular/platform-browser-dynamic": "^6.0.5",
-    "@angular/router": "^6.0.2",
+    "@angular/router": "^6.0.7",
     "@fortawesome/angular-fontawesome": "0.1.0-10",
     "@fortawesome/fontawesome-svg-core": "^1.2.0",
     "@fortawesome/free-solid-svg-icons": "^5.1.0",
