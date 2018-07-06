@@ -1,13 +1,13 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http'
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { ButtonsModule } from 'ngx-bootstrap/buttons';
-import { CommonModule } from "@angular/common";
-import { FormsModule } from "@angular/forms";
-import { FontAwesomeModule } from "@fortawesome/angular-fontawesome";
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 import { AppComponent } from './app.component';
 import { TodoListComponent } from './todo/todo-list.component';
@@ -17,6 +17,8 @@ import { TodoStore } from './shared/todoStore.service';
 import { WriteOutJsonInterceptor } from './shared/write-out-json-interceptor';
 import { AddOnEnterDirective } from './shared/add-on-enter.directive';
 import { AppRoutingModule } from './app-routing.module';
+import { ApiServiceProvider } from './api.service.provider';
+import { WebStorageModule } from 'ngx-store';
 
 @NgModule({
   declarations: [
@@ -37,7 +39,8 @@ import { AppRoutingModule } from './app-routing.module';
     TooltipModule.forRoot(),
     ModalModule.forRoot(),
     ButtonsModule.forRoot(),
-    AppRoutingModule
+    AppRoutingModule,
+    WebStorageModule
   ],
   providers: [
     TodoStore,
@@ -45,7 +48,8 @@ import { AppRoutingModule } from './app-routing.module';
       provide: HTTP_INTERCEPTORS,
       useClass: WriteOutJsonInterceptor,
       multi: true
-    }
+    },
+    ApiServiceProvider
   ],
   bootstrap: [AppComponent]
 })

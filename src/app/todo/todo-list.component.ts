@@ -16,30 +16,31 @@ export class TodoListComponent implements OnInit, DoCheck, OnDestroy {
     private routeSubscription: Subscription;
     public todos: Array<Todo> = [];
 
-    constructor(private todoStore: TodoStore, private route: ActivatedRoute) { 
+    constructor(private todoStore: TodoStore, private route: ActivatedRoute) {
 
     }
-    
+
     ngOnInit() {
         this.routeSubscription = this.route.params.subscribe(
-            (params) => { 
+            (params) => {
                 const filter = params['filter'];
                 this.route.data.subscribe(
                     (data: {todos: Todo[]}) => {
-                        if (filter === 'active')
+                        if (filter === 'active') {
                             this.todos = data.todos.filter(t => !t.completed);
-                        else if (filter === 'completed')
+                        } else if (filter === 'completed') {
                             this.todos = data.todos.filter(t => t.completed);
-                        else
-                            this.todos = data.todos;
+                        } else {
+                          this.todos = data.todos;
+                        }
                     },
-                    (error) => { 
-                        console.log(error.message); 
+                    (error) => {
+                        console.log(error.message);
                     }
-                )
+                );
             }
         );
-        
+
     }
 
     ngOnDestroy() {
@@ -60,8 +61,8 @@ export class TodoListComponent implements OnInit, DoCheck, OnDestroy {
                     console.log("Could not create todo", error.message);
                     this.todos.splice(this.todos.indexOf(todo), 1);
                 }
-            ); 
-            
+            );
+
     }
 
     onUpdateTodo(todo: Todo) {
@@ -82,7 +83,7 @@ export class TodoListComponent implements OnInit, DoCheck, OnDestroy {
                 () => { },
                 () => {
                     this.todos.push(todo);
-                } 
+                }
             );
     }
 

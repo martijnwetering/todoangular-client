@@ -11,9 +11,8 @@ export class TodoListResolverService implements Resolve<Todo[]> {
 
   constructor(private _todoStore: TodoStore) { }
 
-  resolve(route: ActivatedRouteSnapshot, 
+  resolve(route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Todo[] | Observable<Todo[]> | Promise<Todo[]> {
-      console.log('resolve method called');
       return this._todoStore.get();
   }
 }

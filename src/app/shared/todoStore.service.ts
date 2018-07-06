@@ -1,21 +1,21 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpResponse, HttpParams, HttpHeaders } from '@angular/common/http';
-import { Observable } from 'rxjs'
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Observable } from 'rxjs';
 import { Todo } from '../model/todo';
-import { map, catchError } from "rxjs/operators";
+import { catchError } from 'rxjs/operators';
+import { Api } from '../api.service.provider';
 
 @Injectable({
   providedIn: 'root'
 })
 export class TodoStore {
 
+  private baseUrl = '/api/todo';
 
-  private baseUrl: string = '/api/todo';
-
-  constructor(private httpClient: HttpClient) { }
+  constructor(private httpClient: HttpClient, private _api?: Api) { }
 
   get(): Observable<Todo[]> {
-    return this.httpClient.get<Todo[]>(this.baseUrl);
+    return this._api.get();
   }
 
   insert(todo: Todo): Observable<Todo> {
@@ -47,6 +47,4 @@ export class TodoStore {
     const headers = new HttpHeaders({'Accept': 'application/json', 'Content-Type': 'application/json'});
     return {headers: headers};
   }
-
 }
-
