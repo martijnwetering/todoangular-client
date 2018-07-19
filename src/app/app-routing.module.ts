@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from "@angular/router";
-import { TodoListComponent } from './todo/todo-list.component';
-import { TodoListResolverService } from './todo-list-resolver.service';
+import { TodoListComponent } from './todo/todo-list/todo-list.component';
+import { TodoListResolverService } from './shared/todo-list-resolver.service';
 
 const appRoutes: Routes = [
   { path: '', component: TodoListComponent, pathMatch: 'full', resolve: {todos: TodoListResolverService} },

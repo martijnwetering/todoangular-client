@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter, ViewChild, ElementRef, ChangeDetectorRef } from '@angular/core';
-import { Todo } from '../model/todo';
+import { Todo } from '../../model/todo';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
 
 @Component({

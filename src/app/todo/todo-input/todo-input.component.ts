@@ -1,7 +1,5 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
-import { NgForm } from '@angular/forms';
-import { TodoStore } from '../shared/todoStore.service';
-import { Todo } from '../model/todo';
+import { Todo } from '../../model/todo';
 
 @Component({
   selector: 'app-todo-input',
@@ -24,5 +22,4 @@ export class TodoInputComponent implements OnInit {
     this.todoAdded.emit({title: title, completed: false})
     this.todo = '';
   }
-
 }

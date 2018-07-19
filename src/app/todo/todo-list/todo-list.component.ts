@@ -1,6 +1,6 @@
 import { Component, OnInit, DoCheck, ChangeDetectionStrategy, OnDestroy } from '@angular/core';
-import { TodoStore } from '../shared/todoStore.service';
-import { Todo } from '../model/todo';
+import { TodoStore } from '../../shared/todoStore.service';
+import { Todo } from '../../model/todo';
 import { HttpErrorResponse } from '@angular/common/http';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';

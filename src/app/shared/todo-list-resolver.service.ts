@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Resolve, RouterStateSnapshot, ActivatedRouteSnapshot } from '@angular/router';
-import { Todo } from './model/todo';
+import { Todo } from '../model/todo';
 import { Observable } from 'rxjs';
-import { TodoStore } from './shared/todoStore.service';
+import { TodoStore } from './todoStore.service';
 
 @Injectable({
   providedIn: 'root'

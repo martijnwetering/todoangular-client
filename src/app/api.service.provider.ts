@@ -1,8 +1,9 @@
 import { HttpClient } from '@angular/common/http';
-import { TodoStore } from './shared/todoStore.service';
-import { Observable, Observer } from 'rxjs';
+import { Observable } from 'rxjs';
 import { Todo } from './model/todo';
 import { LocalStorageService } from 'ngx-store';
+import { ConfigService } from './config.service';
+import { Injector, Injectable } from '@angular/core';
 
 export class Test {
 
@@ -15,6 +16,9 @@ export abstract class Api {
   abstract delete(): Observable<any>;
 }
 
+@Injectable({
+    providedIn: 'root'
+  })
 export class LocalStorageApi implements Api {
 
   private static STORAGE_ID = 'todos-angular';
@@ -49,21 +53,14 @@ export class LocalStorageApi implements Api {
   delete(): Observable<any> {
     throw new Error('Method not implemented.');
   }
-
-
 }
 
-const ApiServiceFactory = (httpClient: HttpClient) => {
-  return new LocalStorageApi(new LocalStorageService());
-  // httpClient.get('/api/todo')
-  //   .subscribe(
-  //     (_) => {
-  //       return new LocalStorageApi(new LocalStorageService());
-  //     },
-  //     () => {
-  //       return new LocalStorageApi(new LocalStorageService());
-  //     }
-  //   );
+const ApiServiceFactory = (configService: ConfigService) => {
+  if (configService.apiAvailable) {
+    return Injector.create({providers: [{ provide: LocalStorageApi, deps: [LocalStorageService] }]}).get(LocalStorageApi);
+  } else {
+    return Injector.create({providers: [{ provide: LocalStorageApi, deps: [LocalStorageService] }]}).get(LocalStorageApi);
+  }
 };
 
 export let ApiServiceProvider = {
